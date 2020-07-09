@@ -1,0 +1,28 @@
+<br>
+<div class="container">
+    <form (ngSubmit)="search($event)"><br>
+      <input type="search" class="form-control" placeholder="Search images"><br>
+      <button mat-flat-button class="searchimage" color="primary" type="submit">Submit</button>
+    </form><br>
+  
+    <mat-paginator [length]="images.length"
+                [pageSize]="size"
+                [pageIndex]="page"
+                [pageSizeOptions]="[4, 8, 12,24]"
+                (page)="getData($event)">
+  </mat-paginator>
+
+    <mat-grid-list cols="4" rowHeight="2:1">
+
+      <mat-grid-tile *ngFor="let image of images">
+
+            <img src="{{image.url}}_m.jpg" title="{{image.title}}" (click)="onClickImage(image.url,image.title)">
+            
+      </mat-grid-tile>
+
+    </mat-grid-list>
+    
+  </div>
+  <div>
+    <app-display-review></app-display-review>
+  </div>

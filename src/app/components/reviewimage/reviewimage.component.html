@@ -1,0 +1,43 @@
+<br>
+<div class="ImageDetails">
+<mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-tile>
+        <img src="{{imageUrl}}">
+    </mat-grid-tile>
+</mat-grid-list><br>
+<h2>{{title}}</h2>
+</div>
+
+<mat-card>
+    <mat-card-content><br>
+        <form name="form-review" class="example-form" (ngSubmit)="submitReview($event)">
+            
+            <mat-radio-group [(ngModel)]="rating" name="rating" aria-label="Select an option">
+                <mat-radio-button value="1"> 1 </mat-radio-button>
+                <mat-radio-button value="2"> 2 </mat-radio-button>
+                <mat-radio-button value="3"> 3 </mat-radio-button>
+                <mat-radio-button value="4"> 4 </mat-radio-button>
+                <mat-radio-button value="5"> 5 </mat-radio-button>
+                <mat-radio-button value="6"> 6 </mat-radio-button>
+                <mat-radio-button value="7"> 7 </mat-radio-button>
+                <mat-radio-button value="8"> 8 </mat-radio-button>
+                <mat-radio-button value="9"> 9 </mat-radio-button>
+                <mat-radio-button value="10"> 10 </mat-radio-button>
+            </mat-radio-group><br>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+
+                <mat-label>Name</mat-label>
+                <input type="text" matInput class="form-control" id="name" name="name" [(ngModel)]="user.name" #name="ngModel" required />
+            </mat-form-field><br>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+
+                <mat-label>Reason</mat-label>
+                <input type="text" matInput class="form-control" id="reason" name="reason" [(ngModel)]="user.reason" #reason="ngModel" required />
+            </mat-form-field><br>
+
+            <button mat-flat-button color="primary" type="submit">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>
