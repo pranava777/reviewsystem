@@ -13,15 +13,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReviewimageComponent } from './components/reviewimage/reviewimage.component';
 
 import { SharedataService } from './services/sharedata.service';
-import { DisplayReviewComponent } from './components/display-review/display-review.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
     NavbarComponent,
-    ReviewimageComponent,
-    DisplayReviewComponent
+    ReviewimageComponent
   ],
   imports: [
     BrowserModule,

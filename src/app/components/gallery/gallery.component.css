@@ -1,3 +1,8 @@
 .searchimage {
     margin-left: 45%;
 }
+
+.text-inside-grid > ::ng-deep figure {
+    justify-content: flex-start bottom !important;
+    
+}

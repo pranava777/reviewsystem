@@ -1,45 +1,52 @@
 import { Injectable } from '@angular/core';
 import { Image } from 'src/app/models/image';
-import { User } from 'src/app/models/user';
 
 @Injectable()
 export class SharedataService {
 
-  static imagereceived: Image=new Image();
-  static userReview: User=new User();
-  static rating : string="";
+  static items: Array<Image>;
+  static imageToReview: Image=new Image();
 
   constructor() { }
 
-  setImageData(image) {
+  setImages(images) {
+    SharedataService.items = images;
+  }
 
-    SharedataService.imagereceived.url = image.url;
-    SharedataService.imagereceived.title = image.title;
+  setImageData(event) {
+
+    for (let i = 0; i < SharedataService.items.length; i++) {
+      if(SharedataService.items[i].url == event) {
+        SharedataService.items[i].imageUrl = event + "_b.jpg";
+        SharedataService.imageToReview = SharedataService.items[i]; 
+      }
+    }
   }
 
   getImageData() : Image {
 
-    return SharedataService.imagereceived;
+    return SharedataService.imageToReview;
   }
 
-  setUserReviewData(user,rating) {
-
-    SharedataService.userReview.rating = "Rating : " + rating;
-    SharedataService.userReview.name = "Rated by : " + user.name;
-    SharedataService.userReview.reason = "Reason : " + user.reason;
-  }
-
-  getUserReviewData() : User {
-
-    return SharedataService.userReview;
-  }
-
-  clearData() {
-    SharedataService.imagereceived.title = "";
-    SharedataService.imagereceived.url = "";
-    SharedataService.userReview.name = "";
-    SharedataService.userReview.reason = "";
-    SharedataService.userReview.rating = "";
-  }
   
+  setUserReviewData(rating,reason,name) {
+
+    for (let i = 0; i < SharedataService.items.length; i++) {
+      if(SharedataService.items[i].url == SharedataService.imageToReview.url) {
+        SharedataService.imageToReview.rating = "Rating : " + rating;
+        SharedataService.imageToReview.name = " By : " + name;
+        SharedataService.imageToReview.reason = "Reason : " + reason;
+        SharedataService.items[i] = SharedataService.imageToReview;
+      }
+    }
+    
+    
+  }
+
+  
+  getImages() : Array<Image> {
+    
+    return SharedataService.items;
+  }
+
 }

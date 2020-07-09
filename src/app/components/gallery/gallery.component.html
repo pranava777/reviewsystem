@@ -12,17 +12,15 @@
                 (page)="getData($event)">
   </mat-paginator>
 
-    <mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-list cols="4">
 
       <mat-grid-tile *ngFor="let image of images">
 
-            <img src="{{image.url}}_m.jpg" title="{{image.title}}" (click)="onClickImage(image.url,image.title)">
-            
+            <img src="{{image.url}}_m.jpg" title="{{image.title}}" (click)="onClickImage(image.url)">
+            <mat-grid-tile-footer>{{image.rating}}<br>{{image.name}}</mat-grid-tile-footer>
+        
       </mat-grid-tile>
 
     </mat-grid-list>
     
-  </div>
-  <div>
-    <app-display-review></app-display-review>
   </div>

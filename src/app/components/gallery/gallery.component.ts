@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import { FlikrphotosService } from 'src/app/services/flikrphotos.service';
 import { SharedataService } from 'src/app/services/sharedata.service';
 import { Image } from 'src/app/models/image';
-import { DisplayReviewComponent } from '../display-review/display-review.component';
 
 @Component({
   selector: 'app-gallery',
@@ -19,7 +18,6 @@ export class GalleryComponent implements OnInit {
 
   images = [];
   keyword: string;
-  image: Image=new Image();
 
   page = 0;
   size = 30;
@@ -31,7 +29,8 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    if(typeof(this.dataService.getImages()) != "undefined" )
+      this.images = this.dataService.getImages();
   }
 
   getData(obj) {
@@ -47,13 +46,20 @@ export class GalleryComponent implements OnInit {
 
   search(event) {
     
-    this.dataService.clearData();
     this.keyword = event.currentTarget[0].value.toLowerCase();
     if (this.keyword && this.keyword.length > 0) {
       this.flickrService.search_keyword(this.keyword)
       .toPromise()
       .then(res => {
         this.images = res;
+        for (let i = 0; i < this.images.length; i++) {
+          this.images[i].imageUrl ="";
+          this.images[i].rating = "";
+          this.images[i].name = "";
+          this.images[i].reason ="";
+        }
+        
+        this.dataService.setImages(this.images);
         this.getData({pageIndex: this.page, pageSize: this.size});
       });
     }
@@ -70,11 +76,9 @@ export class GalleryComponent implements OnInit {
     }
   }
 
-  onClickImage(event,title) {
+  onClickImage(event) {
     
-    this.image.url = event + "_b.jpg";
-    this.image.title = title;
-    this.dataService.setImageData(this.image);
+    this.dataService.setImageData(event);
     this.router.navigate(['/review']);
   }
 
