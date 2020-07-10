@@ -5,9 +5,19 @@
       <button mat-flat-button class="searchimage" color="primary" type="submit">Submit</button>
     </form><br>
   
+    <div>
+    <mat-paginator md-on-paginate="logPagination" [length]="images.length"
+                [pageSize]="size"
+                [pageIndex]="page"
+                [pageSizeOptions]="[4, 8, 12,24]"
+                showFirstLastButtons
+                (page)="getData($event)">
+    </mat-paginator>
+    </div>
+
     <mat-grid-list cols="3">
 
-      <mat-grid-tile *ngFor="let image of images">
+      <mat-grid-tile *ngFor="let image of imagePerPage">
 
             <img src="{{image.url}}_m.jpg" title="{{image.title}}" (click)="onClickImage(image.url)">
             <mat-grid-tile-footer><div class="review">{{image.rating}}<br>{{image.name}}</div></mat-grid-tile-footer>

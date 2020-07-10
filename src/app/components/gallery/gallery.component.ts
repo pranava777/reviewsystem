@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 
 import { FlikrphotosService } from 'src/app/services/flikrphotos.service';
 import { SharedataService } from 'src/app/services/sharedata.service';
 import { Image } from 'src/app/models/image';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-gallery',
@@ -16,11 +17,14 @@ import { Image } from 'src/app/models/image';
 })
 export class GalleryComponent implements OnInit {
 
-  images = [];
+  images : Array<Image>;
+  imagePerPage : Array<Image>;
   keyword: string;
 
   page = 0;
   size = 30;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor( 
     private router: Router,
@@ -29,21 +33,31 @@ export class GalleryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(typeof(this.dataService.getImages()) != "undefined" )
+    if(typeof(this.dataService.getImages()) != "undefined" ) {
       this.images = this.dataService.getImages();
+      this.imagePerPage = [];
       this.getData({pageIndex: this.page, pageSize: this.size});
+    }
+    else {
+      this.images = [];
+      this.imagePerPage = [];
+    }
   }
 
+  
   getData(obj) {
     let index=0,
     startingIndex=obj.pageIndex * obj.pageSize,
     endingIndex=startingIndex + obj.pageSize;
 
-    this.images = this.images.filter(() => {
+    this.imagePerPage = this.images.filter(() => {
       index++;
       return (index > startingIndex && index <= endingIndex) ? true : false;
     });
+
+    
   }
+  
 
   search(event) {
     
