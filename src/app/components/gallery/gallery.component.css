@@ -4,5 +4,8 @@
 
 .text-inside-grid > ::ng-deep figure {
     justify-content: flex-start bottom !important;
-    
+}
+
+.review {
+    margin-left: 17% !important;
 }

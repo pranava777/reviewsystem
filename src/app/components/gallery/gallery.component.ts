@@ -31,6 +31,7 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
     if(typeof(this.dataService.getImages()) != "undefined" )
       this.images = this.dataService.getImages();
+      this.getData({pageIndex: this.page, pageSize: this.size});
   }
 
   getData(obj) {
